@@ -1,0 +1,64 @@
+{
+    "tasks": [
+        {
+            "id": 1,
+            "name": "Identify All Embryo Positions",
+            "description": "Use image processing to identify the coordinates of all embryos in the image and create a list of embryos and their corresponding positions.",
+            "next": 2
+            },
+        {
+            "id": 2,
+            "name": "Identify Orientation of All Embryos",
+            "description": "Identify the difference in the angle of each embryo from horizontal. Add to the list of positions as a separte column of orientations.",
+            "next": 3
+            },
+        {
+            "id": 3,
+            "name": "Determine the Final Position and Orientation needed for All Embryos",
+            "description": "Identify what coordinates and orientation is needed for the correct final position of each embryo and at to the list of position and orientation list as a final column.",
+            "next": 4
+            },
+            {
+            "id": 4,
+            "name": "Select Next Embryo",
+            "description": "Choose the next embryo from the list of identified embryos",
+            "next": 5
+            },
+            {
+            "id": 5,
+            "name": "Approach Selected Embryo",
+            "description": "Adhere to the target embryo and lift the embryo from the dish",
+            "next": 6
+            },
+            {
+            "id": 6,
+            "name": "Translate to the Target Position",
+            "description": "Move the embryo to the target position and hover",
+            "next": 7
+            },
+            {
+            "id": 7,
+            "name": "Orient the Embryo",
+            "description": "Adjust the orientation of the embryo to the desired angle",
+            "next": 8
+        
+            },
+            {
+            "id": 8,
+            "name": "Lower the Embryo and Release",
+            "description": "Release the embryo at the target position and orientation",
+            "next": 9
+            },
+            {
+            "id": 9,
+            "name": "Check for Remaining Embryos",
+            "description": "Check if there any remaining embryos in the list",
+            "condition": {
+                "expression": "remaining > 0",
+                "true": { "$ref": "#/tasks/3" },
+                "false": null
+            }
+            }
+        
+    ]
+}
