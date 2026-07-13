@@ -3,15 +3,16 @@ function tool = createToolHead(workspace)
 tool.name = "adhesionTool";
 
 % define tool specifications and radius of droplet used to contact embryo    
-tool.contactRadius = 0.3;
+tool.contactRadius = 0.25;
 tool.diameter = 1.5;
-tool.height = 0.08;
+tool.height = 0.5;
 tool.radius = tool.diameter/2;
+tool.clearance = 1; 
 
 
 % define intial tool position as well as give identity matrix for
 % calculations
-tool.position = [workspace.size(1)/2; workspace.size(2)/2; 10];
+tool.position = [workspace.sourceregion(1)/2 + 15; workspace.sourceregion(2)/2 + 15; 10];
 tool.orientation = eye(3);
 
 tool.pose = [tool.orientation tool.position; 0 0 0 1];

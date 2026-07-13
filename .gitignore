@@ -1,0 +1,7 @@
+*.asv
+runs/
+SimulationScreenshots/
+obb_predictions*.csv
+__pycache__/
+*.pyc
+*.mat

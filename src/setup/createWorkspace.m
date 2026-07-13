@@ -1,17 +1,26 @@
-% function for creating workspace for the embryos
-function ws = createWorkspace()
+% Function for creating workspace for the embryo simulation
+function workspace = createWorkspace()
 
-% define the workspace size as well as material properties
-ws.size = [ 100, 100, 20];
-ws.material = 'glass';
-ws.surface = 0;
+% dimensions [mm]
+workspace.size = [40, 40, 10];
 
+% Source region
+workspace.sourceregion = [0, 0, 15, 15];
 
-% define the material mechanical properteis
+% Moved region
+workspace.movedregion = [35, 5, 25, 25];
+workspace.movedSpacing = 4;
 
-ws.coefffriction = 0.4; 
-ws.youngsmodulus = 70e5; % Pa
-ws.poissonratio = 0.22;
-ws.density = 2500; % kg/m^3
-ws.surfaceenergy = 0.1; % J/m^2
+% Workspace material
+workspace.material = "glass";
+workspace.surfaceHeight = 0;
+
+% Material Properties (for future contact mechanics)
+
+workspace.coeffFriction = 0.40;
+workspace.youngsModulus = 70e9;      % Pa
+workspace.poissonRatio = 0.22;
+workspace.density = 2500;            % kg/m^3
+workspace.surfaceEnergy = 0.10;      % J/m^2
+
 end

@@ -9,7 +9,7 @@ width = workspace.size(1);
 depth = workspace.size(2);
 
 % draw boundary
-rectangle('Position', workspace.activeregion,'Edgecolor','w', 'Linewidth',2)
+rectangle('Position', workspace.sourceregion,'Edgecolor','w', 'Linewidth',2)
 
 % plot each embryo 
 for i = 1:length(embryos)

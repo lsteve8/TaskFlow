@@ -78,7 +78,7 @@ Future work includes improving grasp planning, handling complex embryo clusters,
 
 ## Author
 
-Bennett Schwitters
+Luke Stevens
 
 Mechanical Engineering, Clemson University
 

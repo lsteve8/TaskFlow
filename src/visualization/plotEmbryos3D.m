@@ -2,7 +2,7 @@ function plotEmbryos3D(workspace,embryos,showIDs,showArrows)
 
 % translate the plotting into a 3D version
 
-figure; 
+
 hold on;
 
 % workspace size
@@ -10,9 +10,6 @@ width = workspace.size(1);
 height = workspace.size(2);
 depth = workspace.size(3);
 
-
-% workspace region
-%rectangle('Position',width,height,depth,'EdgeColor','w','Linewidth',2)
 
 % plot each of the embryo in 3D
 for i = 1:length(embryos)
@@ -26,8 +23,17 @@ for i = 1:length(embryos)
   xPlot = reshape(rotatedPoints(1,:), size(xEll)) + embryos(i).position(1);
   yPlot = reshape(rotatedPoints(2,:), size(yEll)) + embryos(i).position(2);
   zPlot = reshape(rotatedPoints(3,:), size(zEll)) + embryos(i).position(3);
+if embryos(i).state == "selected"
 
-  surf(xPlot,yPlot,zPlot)
+  surf(xPlot,yPlot,zPlot,'FaceColor','g')
+elseif embryos(i).state == "grasped"
+    surf(xPlot,yPlot,zPlot,'FaceColor','y')
+elseif embryos(i).state == "moved"
+    surf(xPlot,yPlot,zPlot,'FaceColor','b')
+else 
+    surf(xPlot, yPlot, zPlot, 'FaceColor', 'w');
+
+end
   if showIDs
   text(embryos(i).position(1)+0.2,embryos(i).position(2)+0.2,embryos(i).position(3)+0.2,num2str(i),'FontSize',8,'FontWeight','bold')
   end
@@ -38,7 +44,6 @@ for i = 1:length(embryos)
 
    quiver3(embryos(i).position(1), embryos(i).position(2),embryos(i).position(3), arrowlength*direction(1),arrowlength*direction(2),0,'Linewidth',1.5,'MaxHeadSize',2)
   end
-end
 axis equal;
 xlim([0 width]);
 ylim([0 height]);
