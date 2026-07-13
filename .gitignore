@@ -5,3 +5,16 @@ obb_predictions*.csv
 __pycache__/
 *.pyc
 *.mat
+# Virtual environment
+yolovenv/
+# YOLO training outputs
+runs/
+results/
+# Datasets
+datasets/
+embryo_pictures/
+# Prediction CSVs
+*predictions*.csv
+
+# VS Code
+.vscode/
