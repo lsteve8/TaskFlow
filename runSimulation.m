@@ -25,7 +25,7 @@ figure
 plotEmbryos3D(workspace, embryos, showIDs, showArrows)
     hold on
     plotToolHead3D(toolhead)
-    title('Tool above selected embryo')
+    title('Tool above selected embryo') 
 
    
 
