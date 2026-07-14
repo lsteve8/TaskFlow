@@ -10,7 +10,7 @@ addpath(genpath(fullfile(projectFolder, "src")));
 workspace = createWorkspace();
 
 imagePath = ...
-    "C:\Users\lukes\dev_yolo\datasets\test7_3\40xtest3.jpg";
+    "C:\Users\lukes\dev_yolo\datasets\test7_3\80xtest2.jpg";
 
 numSteps = 25;
 showIDs = false;

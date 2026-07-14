@@ -78,6 +78,18 @@ if numRotationSamples >= 2
 
     rotationDifferences = diff(unwrappedRotation, 1, 1);
 
+   movingYawChanges = ...
+    motionLog.moveYawChanges(motionLog.moveYawChanges > 1e-9);
+
+
+if ~isempty(movingYawChanges)
+    maximumYawAdjustment = max(movingYawChanges);
+    averageYawAdjustment = mean(movingYawChanges);
+else
+    maximumYawAdjustment = 0;
+    averageYawAdjustment = 0;
+end
+
     cumulativeRotation = sum(abs(rotationDifferences), 1);
 
     netRotation = ...
@@ -94,6 +106,9 @@ if numRotationSamples >= 2
 
 elseif numRotationSamples == 1
 
+    maximumYawAdjustment = 0;
+    averageYawAdjustment = 0;
+
     cumulativeRotation = [0, 0, 0];
     netRotation = [0, 0, 0];
 
@@ -105,6 +120,8 @@ elseif numRotationSamples == 1
 
 else
 
+    maximumYawAdjustment = 0;
+    averageYawAdjustment = 0;
     cumulativeRotation = [0, 0, 0];
     netRotation = [0, 0, 0];
     minimumRotation = [0, 0, 0];
@@ -120,6 +137,9 @@ minimumRotationDeg = rad2deg(minimumRotation);
 maximumRotationDeg = rad2deg(maximumRotation);
 rotationRangeDeg = rad2deg(rotationRange);
 totalAngularMotionDeg = rad2deg(totalAngularMotion);
+
+maximumYawAdjustmentDeg = rad2deg(maximumYawAdjustment);
+averageYawAdjustmentDeg = rad2deg(averageYawAdjustment);
 
 fprintf('\n----- Simulation Summary -----\n');
 fprintf('Total embryos:        %d\n', numTotal);
@@ -160,6 +180,11 @@ fprintf('Minimum orientation:     [%.2f, %.2f, %.2f] deg\n', ...
     minimumRotationDeg);
 fprintf('Maximum orientation:     [%.2f, %.2f, %.2f] deg\n', ...
     maximumRotationDeg);
+fprintf('Maximum yaw adjustment:  %.2f deg\n', ...
+    maximumYawAdjustmentDeg);
+
+fprintf('Average yaw adjustment:  %.2f deg\n', ...
+    averageYawAdjustmentDeg);
 fprintf('Orientation range:       [%.2f, %.2f, %.2f] deg\n', ...
     rotationRangeDeg);
 fprintf('Net rotation:            [%.2f, %.2f, %.2f] deg\n', ...

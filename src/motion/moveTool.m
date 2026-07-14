@@ -21,6 +21,10 @@ end
 yawDifference = atan2( ...
     sin(targetYaw - startYaw), ...
     cos(targetYaw - startYaw));
+    
+motionLog.moveYawChanges(end+1,1) = abs(yawDifference);
+
+fprintf("Yaw change: %.2f deg\n", rad2deg(abs(yawDifference)));
 
 for k = 1:numSteps
 
