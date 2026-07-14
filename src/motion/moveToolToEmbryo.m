@@ -1,6 +1,7 @@
-function [embryos, tool] = moveToolToEmbryo(embryos, tool, numSteps, workspace, showIDs, showArrows)
+function [embryos, tool, motionLog] = moveToolToEmbryo( ...
+    embryos, tool, numSteps, workspace, ...
+    showIDs, showArrows, motionLog)
 
-% find embryo
 selectedID = 0;
 
 for i = 1:length(embryos)
@@ -11,14 +12,25 @@ for i = 1:length(embryos)
 end
 
 if selectedID == 0
-    warning('No selected embryo found')
+    warning("No selected embryo found")
     return
 end
 
-% move tool above selected embryo
-targetPosition  = embryos(selectedID).position + [0; 0; tool.clearance];
+targetPosition = embryos(selectedID).position ...
+    + [0; 0; tool.clearance];
 
-[embryos, tool] = moveTool(embryos,tool,targetPosition,numSteps,workspace,showIDs,showArrows);
+targetRotation = embryos(selectedID).orientation;
+
+[embryos, tool, motionLog] = moveTool( ...
+    embryos, ...
+    tool, ...
+    targetPosition, ...
+    targetRotation, ...
+    numSteps, ...
+    workspace, ...
+    showIDs, ...
+    showArrows, ...
+    motionLog);
 
 tool.state = "aboveEmbryo";
 

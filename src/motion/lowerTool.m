@@ -1,4 +1,4 @@
-function [embryos, tool] = lowerTool(embryos, tool, numSteps, workspace, showIDs, showArrows)
+function [embryos, tool, motionLog] = lowerTool(embryos, tool, numSteps, workspace, showIDs, showArrows, motionLog)
 
 attachedID = 0;
 
@@ -15,7 +15,7 @@ end
 
 targetPosition = embryos(attachedID).position + [0; 0; embryos(attaachedID).height + tool.height];
 
-[embryos,tool] = moveTool(embryos,tool,targetPosition,numSteps,workspace,showIDs,showArrows);
+[embryos,tool] = moveTool(embryos,tool,targetPosition,numSteps,workspace,showIDs,showArrows,motionLog);
 
 tool.state = "contact";
 
