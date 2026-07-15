@@ -2,13 +2,13 @@
 function workspace = createWorkspace()
 
 % dimensions [mm]
-workspace.size = [40, 40, 10];
+workspace.size = [100, 40, 10];
 
 % Source region
-workspace.sourceregion = [0, 0, 15, 15];
+workspace.sourceregion = [0, 5, 20, 25];
 
 % Moved region
-workspace.movedregion = [35, 5, 25, 25];
+workspace.movedregion = [80, 5, 100, 25];
 workspace.movedSpacing = 4;
 
 % Workspace material
