@@ -1,4 +1,4 @@
-function [embryos, tool] = graspEmbryo(embryos, tool)
+function [embryos, tool] = graspEmbryo(embryos, tool, hardware)
 
 % intialize ID for embryo
 selectedID = 0;
@@ -14,6 +14,15 @@ end
 if selectedID == 0
     warning('No selected embryo found')
     return
+end
+
+% initialize pump
+if nargin >= 3 && ...
+        ~isempty(hardware) && ...
+        isfield(hardware, "pump") && ...
+        ~isempty(hardware.pump)
+
+    writeline(hardware.pump, "stop");
 end
 
 % initialize grasp mechanism for selected embryo

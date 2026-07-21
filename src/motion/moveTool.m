@@ -6,7 +6,7 @@ function [embryos, tool, motionLog] = moveTool( ...
 startPosition = tool.pose(1:3, 4);
 startRotation = tool.pose(1:3, 1:3);
 
-% Extract starting and target yaw angles
+% Extract starting and target yaw angles    
 startYaw = atan2(startRotation(2,1), startRotation(1,1));
 
 if isscalar(targetRotation)
@@ -24,7 +24,6 @@ yawDifference = atan2( ...
     
 motionLog.moveYawChanges(end+1,1) = abs(yawDifference);
 
-fprintf("Yaw change: %.2f deg\n", rad2deg(abs(yawDifference)));
 
 for k = 1:numSteps
 
@@ -77,6 +76,7 @@ for k = 1:numSteps
 
     updateSimulation( ...
         workspace, embryos, tool, showIDs, showArrows);
+
 end
 
 tool.targetPosition = targetPosition;

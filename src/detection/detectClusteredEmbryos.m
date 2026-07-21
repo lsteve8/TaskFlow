@@ -1,6 +1,6 @@
 function embryos = detectClusteredEmbryos(embryos)
 
-clusteredThreshold = 0.5;
+clusteredThreshold = 1;
 
 numEmbryos = length(embryos);
 
@@ -16,12 +16,14 @@ for i = 1:numEmbryos
 
          distance = norm(pos_i - pos_j);
 
+        
+
          if distance < clusteredThreshold
              embryos(i).isClustered = true;
              embryos(j).isClustered = true;
 
-             embryos(i).state = 'Clustered';
-             embryos(j).state = 'Clustered';
+             embryos(i).state = 'clustered';
+             embryos(j).state = 'clustered';
          end
      end
 end

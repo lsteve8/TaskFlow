@@ -30,6 +30,10 @@ elseif embryos(i).state == "grasped"
     surf(xPlot,yPlot,zPlot,'FaceColor','y')
 elseif embryos(i).state == "moved"
     surf(xPlot,yPlot,zPlot,'FaceColor','b')
+elseif embryos(i).state == "failed"
+    surf(xPlot,yPlot,zPlot,'FaceColor','r')
+elseif embryos(i).state == "clustered" 
+    surf(xPlot,yPlot,zPlot,'FaceColor','m')
 else 
     surf(xPlot, yPlot, zPlot, 'FaceColor', 'w');
 

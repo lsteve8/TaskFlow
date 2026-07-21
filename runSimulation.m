@@ -5,15 +5,54 @@ close all
 projectFolder = fileparts( ...
     matlab.desktop.editor.getActiveFilename);
 
-addpath(genpath(fullfile(projectFolder, "src")));
+addpath(genpath(fullfile(projectFolder,"src")));
 
+% Mode
+mode = "simulation";
+% mode = "actual";
+
+% create workspace for simulation
 workspace = createWorkspace();
 
-imagePath = ...
-    "C:\Users\lukes\dev_yolo\datasets\test7_3\20xtest3.jpg";
+% initialize pump and hardware
+hardware = struct();
 
-numSteps = 1;
-showIDs = true;
+switch mode
+
+    case "simulation"
+
+        hardware.isSimulation = true;
+        hardware.pump = [];
+
+    case "actual"
+
+        hardware.isSimulation = false;
+
+        pump = serialport("COM3",115200);
+
+        configureTerminator(pump,"CR");
+        pump.Timeout = 3;
+        flush(pump);
+
+        % Pump configuration
+        writeline(pump,"diameter 15.9 mm");
+        writeline(pump,"irate 20 ml/min");
+        writeline(pump,"wrate 20 ml/min");
+
+        hardware.pump = pump;
+
+    otherwise
+
+        error("Unknown mode.")
+
+end
+
+% create path to python code and extract position
+imagePath = ...
+    "C:\Users\lukes\dev_yolo\datasets\test7_3\40xtest3.jpg";
+
+numSteps = 50;
+showIDs = false;
 showArrows = false;
 targetPoint = [50; 50; 0.1];
 
@@ -34,6 +73,8 @@ hold on
 plotToolHead3D(toolhead)
 
 title("Initial workspace")
+
+% run simulation
 
 while hasFreeEmbryos(embryos)
 
@@ -63,7 +104,7 @@ while hasFreeEmbryos(embryos)
     pause(0.2)
 
     [embryos, toolhead] = ...
-        graspEmbryo(embryos, toolhead);
+        graspEmbryo(embryos, toolhead, hardware);
 
     motionLog = recordToolMotion( ...
         motionLog, toolhead);
@@ -91,10 +132,12 @@ while hasFreeEmbryos(embryos)
     hold on
     plotToolHead3D(toolhead)
 
+    
     title("Embryo grasped")
 
     drawnow
     pause(0.2)
+
 
     movedPosition = ...
         getMovedPosition(embryos, workspace);
@@ -125,7 +168,7 @@ while hasFreeEmbryos(embryos)
 
     [embryos, toolhead] = ...
         releaseEmbryo( ...
-            embryos, toolhead, movedPosition);
+            embryos, toolhead, hardware, movedPosition);
 
     motionLog = recordToolMotion( ...
         motionLog, toolhead);
@@ -154,5 +197,7 @@ end
         showIDs, ...
         showArrows, ...
         motionLog);
+
+% create simulation summary
 
 simulationSummary(embryos, motionLog);
